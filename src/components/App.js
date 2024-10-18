@@ -1,5 +1,5 @@
 
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import './../styles/App.css';
 
 const App = () => {
@@ -13,10 +13,10 @@ const App = () => {
   const [todoArray, setTodoArray] = useState([]);
   const [filter, setFilter] = useState('all')
   const [displayArray, setDisplayArray] = useState([])
+  useEffect(() => initializeTodo(), [])
   useMemo(() => {
     const slowDown = (ms) => new Promise(resolve => setTimeout(resolve, ms));
     slowDown(5000);
-    todoArray.length > 0 ? console.log('notrender') : initializeTodo();
     setDisplayArray(filter === 'all' ? todoArray : filter === 'active' ? todoArray.filter(e => !e.status) : todoArray.filter(e => e.status))
 
 
@@ -26,10 +26,14 @@ const App = () => {
   return (
     <div>
       {/* Do not remove the main div */}
-      <div>
-        <button onClick={() => setFilter('all')}>All</button>
-        <button onClick={() => setFilter('active')}>Active</button>
-        <button onClick={() => setFilter('completed')}>Completed</button>
+      <div><ul>
+        <li><button onClick={() => setFilter('all')}>All</button>
+        </li>
+        <li><button onClick={() => setFilter('active')}>Active</button>
+        </li>
+        <li><button onClick={() => setFilter('completed')}>Completed</button></li>
+      </ul>
+
       </div>
       {displayArray.map((e, i) => <p className={e.status ? 'completed' : 'incompleted'} key={i}>{e.name}</p>)}
       <div>

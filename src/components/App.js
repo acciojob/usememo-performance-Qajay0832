@@ -26,19 +26,17 @@ const App = () => {
   return (
     <div>
       {/* Do not remove the main div */}
-      <div><ul>
-        <li><button onClick={() => setFilter('all')}>All</button>
-        </li>
-        <li><button onClick={() => setFilter('active')}>Active</button>
-        </li>
-        <li><button onClick={() => setFilter('completed')}>Completed</button></li>
-      </ul>
-
-      </div>
-      {displayArray.map((e, i) => <p className={e.status ? 'completed' : 'incompleted'} key={i}>{e.name}</p>)}
       <div>
+        <button onClick={() => setFilter('all')}>All</button>
+
+        <button onClick={() => setFilter('active')}>Active</button>
+
+        <button onClick={() => setFilter('completed')}>Completed</button>
 
       </div>
+      <ul>
+        {displayArray.map((e, i) => <li className={e.status ? 'completed' : 'incompleted'} key={i}>{e.name}</li>)}
+      </ul>
 
     </div>
   )
